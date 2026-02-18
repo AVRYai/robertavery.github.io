@@ -387,7 +387,6 @@
           "`avryai-admin/vite.config.js`"
         ],
         "interfaces": [
-          "`POST /auth/login`",
           "`GET /admin/stats`",
           "`GET /admin/conversations`",
           "`GET /admin/conversations/{id}`",
