@@ -1,92 +1,190 @@
-[
-  {
-    "title": "AVRYai AI Receptionist Platform",
-    "description": "B2B SaaS voice AI receptionist platform that handles inbound business calls, messaging workflows, and calendar scheduling.",
-    "tech_stack": ["FastAPI", "Python", "Node.js", "Express", "PostgreSQL", "Twilio", "Vapi", "Stripe", "AWS ECS"],
-    "highlights": [
-      "Designed a multi-service architecture with a voice gateway and API backend",
-      "Integrated telephony, calendar, SMS, and billing providers into one workflow",
-      "Shipped containerized services for cloud deployment"
-    ],
-    "challenges": [
-      "Coordinating real-time call events across multiple external APIs",
-      "Maintaining reliability across async voice, scheduling, and messaging flows"
-    ],
-    "repo_name": "avryai"
-  },
-  {
-    "title": "Betty Sports Betting Research Platform",
-    "description": "Real-time data aggregation and scoring engine for evaluating betting opportunities across sportsbooks and prediction markets.",
-    "tech_stack": ["Python", "FastAPI", "WebSockets", "SQLAlchemy", "PostgreSQL", "Redis", "Docker", "Pandas", "NumPy"],
-    "highlights": [
-      "Built multi-source ingestion from websocket and REST market feeds",
-      "Implemented a weighted scoring engine with configurable factors",
-      "Structured historical tracking with database models and migrations"
-    ],
-    "challenges": [
-      "Normalizing heterogeneous odds and market data in real time",
-      "Balancing ingestion latency with scoring consistency"
-    ],
-    "repo_name": "betty"
-  },
-  {
-    "title": "Chatty Multi-Interface LLM Client",
-    "description": "Monorepo chat platform with web, API, and CLI interfaces for model interaction and conversation export.",
-    "tech_stack": ["TypeScript", "Next.js", "Node.js", "Express", "Prisma", "PostgreSQL", "pnpm Workspaces", "Docker"],
-    "highlights": [
-      "Built separate web UI, REST/SSE API, and terminal CLI in one workspace",
-      "Implemented conversation history and export endpoints",
-      "Used Prisma migrations with containerized local Postgres"
-    ],
-    "challenges": [
-      "Keeping behavior consistent across web and CLI interaction layers",
-      "Managing monorepo tooling and local developer experience"
-    ],
-    "repo_name": "chatty"
-  },
-  {
-    "title": "AVRYai Sales Copilot",
-    "description": "Real-time assistant that transcribes sales conversations and generates next-response suggestions during live calls.",
-    "tech_stack": ["FastAPI", "WebSockets", "React", "Electron", "OpenAI Whisper", "GPT-4o"],
-    "highlights": [
-      "Built streaming pipeline from captured audio to transcript to suggestion",
-      "Implemented low-latency suggestion loop with rolling context",
-      "Delivered overlay UX for in-call guidance"
-    ],
-    "challenges": [
-      "Handling live audio capture and streaming constraints",
-      "Controlling response quality under strict real-time latency"
-    ],
-    "repo_name": "avryai-copilot"
-  },
-  {
-    "title": "Beary Trading Dashboard",
-    "description": "Kraken-style trading command center with live bot monitoring, charts, order book, and analytics views.",
-    "tech_stack": ["React", "TypeScript", "Vite", "FastAPI", "WebSocket", "PostgreSQL", "Docker"],
-    "highlights": [
-      "Developed full-stack dashboard with real-time data channels",
-      "Implemented backend fallbacks for resilience during data-source outages",
-      "Organized services for local and containerized execution"
-    ],
-    "challenges": [
-      "Presenting fast-moving market data without UI instability",
-      "Blending mock and live modes for reliable development"
-    ],
-    "repo_name": "beary"
-  },
-  {
-    "title": "AVRYai Admin Dashboard",
-    "description": "Operational dashboard for authentication, lead tracking, and SMS conversation management.",
-    "tech_stack": ["React", "Vite", "Tailwind CSS", "React Query", "Socket.IO", "Axios"],
-    "highlights": [
-      "Created authenticated dashboard flows with client-side routing",
-      "Implemented periodic refresh patterns for active operational data",
-      "Shipped responsive UI for desktop and mobile use"
-    ],
-    "challenges": [
-      "Maintaining usability while handling high-volume conversation data",
-      "Coordinating optimistic UI behavior with API refresh cycles"
-    ],
-    "repo_name": "avryai-admin"
-  }
-]
+{
+  "projects": [
+    {
+      "title": "AVRYai AI Receptionist Platform",
+      "description": "B2B SaaS voice AI receptionist platform that handles inbound business calls, messaging workflows, and calendar scheduling.",
+      "tech_stack": ["FastAPI", "Python", "Node.js", "Express", "PostgreSQL", "Twilio", "Vapi", "Stripe", "AWS ECS"],
+      "highlights": [
+        "Designed a multi-service architecture with a voice gateway and API backend",
+        "Integrated telephony, calendar, SMS, and billing providers into one workflow",
+        "Shipped containerized services for cloud deployment"
+      ],
+      "challenges": [
+        "Coordinating real-time call events across multiple external APIs",
+        "Maintaining reliability across async voice, scheduling, and messaging flows"
+      ],
+      "repo_name": "avryai",
+      "repo_url": "https://github.com/AVRYai/avryai",
+      "demo_url": "https://avry-ai.com",
+      "docs_url": "https://github.com/AVRYai/avryai/blob/main/README.md",
+      "featured": true,
+      "architecture_snapshot": [
+        "`voice-gateway/` Node.js service handles call-side orchestration",
+        "`api/` FastAPI service contains routers, services, models, and migrations",
+        "`web/` provides the static marketing surface",
+        "`docker-compose.prod.yml` plus `Dockerfile.api` and `Dockerfile.voice` define container deployment"
+      ],
+      "evidence": [
+        "Repo contains `api/`, `voice-gateway/`, and `web/` directories",
+        "`api/main.py` is the backend entrypoint and `api/services/` holds integration logic",
+        "`voice-gateway/server.js` is the voice service entrypoint",
+        "Deployment scripts exist: `deploy-api.sh` and `deploy-voice.sh`",
+        "README local run command: `uvicorn main:app --reload --port 8000`",
+        "README local run command: `node server.js` from `voice-gateway/`"
+      ]
+    },
+    {
+      "title": "Betty Sports Betting Research Platform",
+      "description": "Real-time data aggregation and scoring engine for evaluating betting opportunities across sportsbooks and prediction markets.",
+      "tech_stack": ["Python", "FastAPI", "WebSockets", "SQLAlchemy", "PostgreSQL", "Redis", "Docker", "Pandas", "NumPy"],
+      "highlights": [
+        "Built multi-source ingestion from websocket and REST market feeds",
+        "Implemented a weighted scoring engine with configurable factors",
+        "Structured historical tracking with database models and migrations"
+      ],
+      "challenges": [
+        "Normalizing heterogeneous odds and market data in real time",
+        "Balancing ingestion latency with scoring consistency"
+      ],
+      "repo_name": "betty",
+      "repo_url": "https://github.com/AVRYai/betty",
+      "featured": true,
+      "architecture_snapshot": [
+        "`src/connectors/` separates websocket and REST source integrations",
+        "`src/scoring/engine.py` and `src/scoring/factors/` implement weighted scoring",
+        "`src/models/` and `src/database.py` back persistence for tracked events",
+        "`docker-compose.yml` and `scripts/init-db.sql` support local service bootstrapping"
+      ],
+      "evidence": [
+        "Repo has `src/connectors/`, `src/scoring/`, `src/models/`, and `tests/`",
+        "`src/scoring/engine.py` and `src/scoring/weights.py` are present",
+        "`docker-compose.yml` and `Dockerfile` are in the project root",
+        "Dependencies include FastAPI, Redis, SQLAlchemy, and websockets in `requirements.txt`",
+        "README command: `docker-compose up -d`",
+        "README command: `python -m src.main --dev`"
+      ]
+    },
+    {
+      "title": "Chatty Multi-Interface LLM Client",
+      "description": "Monorepo chat platform with web, API, and CLI interfaces for model interaction and conversation export.",
+      "tech_stack": ["TypeScript", "Next.js", "Node.js", "Express", "Prisma", "PostgreSQL", "pnpm Workspaces", "Docker"],
+      "highlights": [
+        "Built separate web UI, REST/SSE API, and terminal CLI in one workspace",
+        "Implemented conversation history and export endpoints",
+        "Used Prisma migrations with containerized local Postgres"
+      ],
+      "challenges": [
+        "Keeping behavior consistent across web and CLI interaction layers",
+        "Managing monorepo tooling and local developer experience"
+      ],
+      "repo_name": "chatty",
+      "repo_url": "https://github.com/AVRYai/chatty",
+      "docs_url": "https://github.com/AVRYai/chatty/blob/main/apps/api/README.md",
+      "featured": true,
+      "architecture_snapshot": [
+        "Monorepo workspace contains `apps/web`, `apps/api`, and `apps/cli`",
+        "API service in `apps/api/src/index.ts` uses Prisma and Postgres",
+        "Web UI is a Next.js app in `apps/web/`",
+        "`docker-compose.yml` provisions local Postgres on host port 5433"
+      ],
+      "evidence": [
+        "Workspace manifests include `pnpm-workspace.yaml` and root `package.json`",
+        "`apps/api`, `apps/web`, and `apps/cli` each include their own package manifests",
+        "`apps/api/prisma/` and Prisma scripts are present in `apps/api/package.json`",
+        "`docker-compose.yml` defines a Postgres 16 service",
+        "API README command: `docker compose up -d`",
+        "API README command: `pnpm --filter @chatty/api prisma migrate dev`"
+      ]
+    },
+    {
+      "title": "AVRYai Sales Copilot",
+      "description": "Real-time assistant that transcribes sales conversations and generates next-response suggestions during live calls.",
+      "tech_stack": ["FastAPI", "WebSockets", "React", "Electron", "OpenAI Whisper", "GPT-4o"],
+      "highlights": [
+        "Built streaming pipeline from captured audio to transcript to suggestion",
+        "Implemented low-latency suggestion loop with rolling context",
+        "Delivered overlay UX for in-call guidance"
+      ],
+      "challenges": [
+        "Handling live audio capture and streaming constraints",
+        "Controlling response quality under strict real-time latency"
+      ],
+      "repo_name": "avryai-copilot",
+      "repo_url": "https://github.com/AVRYai/copilot",
+      "docs_url": "https://github.com/AVRYai/copilot/blob/main/README.md",
+      "featured": false,
+      "evidence": [
+        "Project includes `backend/`, `frontend/`, and `avryai-copilot-tauri/`",
+        "Backend entrypoint is `backend/main.py` with FastAPI dependencies in `backend/requirements.txt`",
+        "Frontend React app files include `frontend/src/App.jsx` and `frontend/src/Copilot.jsx`",
+        "Desktop shell includes Tauri config under `avryai-copilot-tauri/src-tauri/tauri.conf.json`",
+        "README command: `python main.py` from backend",
+        "README command: `npm run dev` from frontend"
+      ]
+    },
+    {
+      "title": "Beary Trading Dashboard",
+      "description": "Kraken-style trading command center with live bot monitoring, charts, order book, and analytics views.",
+      "tech_stack": ["React", "TypeScript", "Vite", "FastAPI", "WebSocket", "PostgreSQL", "Docker"],
+      "highlights": [
+        "Developed full-stack dashboard with real-time data channels",
+        "Implemented backend fallbacks for resilience during data-source outages",
+        "Organized services for local and containerized execution"
+      ],
+      "challenges": [
+        "Presenting fast-moving market data without UI instability",
+        "Blending mock and live modes for reliable development"
+      ],
+      "repo_name": "beary",
+      "repo_url": "https://github.com/AVRYai/beary",
+      "docs_url": "https://github.com/AVRYai/beary/blob/main/dashboard/README.md",
+      "featured": false,
+      "evidence": [
+        "Dashboard code is split into `dashboard/backend/` and `dashboard/frontend/`",
+        "Backend app module exists at `dashboard/backend/app/main.py`",
+        "Compose file exists at `dashboard/docker-compose.yml`",
+        "Project-level dependencies include data and trading libraries in `requirements.txt`",
+        "README command: `uvicorn app.main:app --reload --port 8000`",
+        "README command: `npm run dev` in `dashboard/frontend`"
+      ]
+    },
+    {
+      "title": "AVRYai Admin Dashboard",
+      "description": "Operational dashboard for authentication, lead tracking, and SMS conversation management.",
+      "tech_stack": ["React", "Vite", "Tailwind CSS", "React Query", "Socket.IO", "Axios"],
+      "highlights": [
+        "Created authenticated dashboard flows with client-side routing",
+        "Implemented periodic refresh patterns for active operational data",
+        "Shipped responsive UI for desktop and mobile use"
+      ],
+      "challenges": [
+        "Maintaining usability while handling high-volume conversation data",
+        "Coordinating optimistic UI behavior with API refresh cycles"
+      ],
+      "repo_name": "avryai-admin",
+      "repo_url": "https://github.com/AVRYai/avryai-admin",
+      "docs_url": "https://github.com/AVRYai/avryai-admin/blob/main/README.md",
+      "featured": false,
+      "evidence": [
+        "React application code lives under `avryai-admin/src/`",
+        "Page components include `DashboardPage.jsx`, `ConversationsPage.jsx`, and `ConversationDetailPage.jsx`",
+        "Build tooling files include `vite.config.js` and `tailwind.config.js`",
+        "Output artifacts are generated in `avryai-admin/dist/`",
+        "README command: `npm run dev`",
+        "README command: `npm run build`"
+      ]
+    }
+  ],
+  "needs_review": [
+    {
+      "repo_name": "betty",
+      "repo_url": "https://github.com/AVRYai/betty",
+      "reason": "No local git remote found in `/home/etm/projects/betty`; URL inferred from repo folder name."
+    },
+    {
+      "repo_name": "beary",
+      "repo_url": "https://github.com/AVRYai/beary",
+      "reason": "No local git remote found in `/home/etm/projects/beary`; URL inferred from repo folder name."
+    }
+  ]
+}

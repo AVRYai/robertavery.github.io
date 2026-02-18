@@ -84,6 +84,17 @@ h2 {
   transition: transform 140ms ease, border-color 140ms ease;
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1.25rem;
+}
+
+.hero-actions .button {
+  margin-top: 0;
+}
+
 .button:hover {
   transform: translateY(-1px);
   border-color: var(--accent);
@@ -135,6 +146,43 @@ h2 {
   font-size: 0.95rem;
 }
 
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1rem;
+}
+
+.card-actions .button {
+  margin-top: 0;
+  padding: 0.42rem 0.72rem;
+  font-size: 0.88rem;
+}
+
+.panel {
+  margin-top: 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #101621;
+}
+
+.panel summary {
+  cursor: pointer;
+  padding: 0.55rem 0.7rem;
+  color: #d9e4f2;
+  font-weight: 500;
+}
+
+.panel ul {
+  margin: 0;
+  padding: 0 1.2rem 0.8rem 2rem;
+  color: #cdd8e6;
+}
+
+.panel li {
+  margin: 0.35rem 0;
+}
+
 .skills-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -148,6 +196,19 @@ h2 {
 
 a {
   color: #97d8ff;
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  margin-top: 2.4rem;
+  background: #090c12;
+}
+
+.footer-inner {
+  padding: 1.2rem 0 1.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
 }
 
 @media (max-width: 620px) {
