@@ -1,0 +1,162 @@
+:root {
+  --bg: #0b0d11;
+  --bg-soft: #11151d;
+  --card: #151b25;
+  --text: #e7edf5;
+  --muted: #a4b0c0;
+  --line: #232d3b;
+  --accent: #72f0d1;
+  --accent-soft: #1f3d39;
+  --max-width: 900px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 0%, #1a2130 0%, transparent 45%),
+    radial-gradient(circle at 100% 20%, #17202a 0%, transparent 40%),
+    var(--bg);
+  color: var(--text);
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  width: min(100% - 2rem, var(--max-width));
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+section {
+  margin-top: 2.5rem;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+  margin-top: 0.2rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.kicker {
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.title {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+
+.positioning {
+  max-width: 65ch;
+  margin-top: 0.9rem;
+  color: #c9d4e2;
+}
+
+.button {
+  margin-top: 1.25rem;
+  display: inline-block;
+  text-decoration: none;
+  color: var(--text);
+  background: linear-gradient(130deg, var(--accent-soft), #1f2a3a);
+  border: 1px solid #2f4455;
+  padding: 0.55rem 0.95rem;
+  border-radius: 10px;
+  transition: transform 140ms ease, border-color 140ms ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+}
+
+.projects-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  background: linear-gradient(155deg, #121824 0%, var(--card) 100%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.card p {
+  color: #ccd6e3;
+  margin-top: 0.55rem;
+}
+
+.meta,
+.highlights {
+  margin-top: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74rem;
+  padding: 0.28rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid #2c3645;
+  background: var(--bg-soft);
+  color: #b9c5d7;
+}
+
+.highlight {
+  width: 100%;
+  color: #d6dfeb;
+  font-size: 0.95rem;
+}
+
+.skills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.about {
+  max-width: 75ch;
+  color: #ccd6e3;
+}
+
+a {
+  color: #97d8ff;
+}
+
+@media (max-width: 620px) {
+  .container {
+    width: min(100% - 1.2rem, var(--max-width));
+    padding-top: 2rem;
+  }
+
+  section {
+    margin-top: 2rem;
+  }
+}

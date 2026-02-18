@@ -1,0 +1,92 @@
+[
+  {
+    "title": "AVRYai AI Receptionist Platform",
+    "description": "B2B SaaS voice AI receptionist platform that handles inbound business calls, messaging workflows, and calendar scheduling.",
+    "tech_stack": ["FastAPI", "Python", "Node.js", "Express", "PostgreSQL", "Twilio", "Vapi", "Stripe", "AWS ECS"],
+    "highlights": [
+      "Designed a multi-service architecture with a voice gateway and API backend",
+      "Integrated telephony, calendar, SMS, and billing providers into one workflow",
+      "Shipped containerized services for cloud deployment"
+    ],
+    "challenges": [
+      "Coordinating real-time call events across multiple external APIs",
+      "Maintaining reliability across async voice, scheduling, and messaging flows"
+    ],
+    "repo_name": "avryai"
+  },
+  {
+    "title": "Betty Sports Betting Research Platform",
+    "description": "Real-time data aggregation and scoring engine for evaluating betting opportunities across sportsbooks and prediction markets.",
+    "tech_stack": ["Python", "FastAPI", "WebSockets", "SQLAlchemy", "PostgreSQL", "Redis", "Docker", "Pandas", "NumPy"],
+    "highlights": [
+      "Built multi-source ingestion from websocket and REST market feeds",
+      "Implemented a weighted scoring engine with configurable factors",
+      "Structured historical tracking with database models and migrations"
+    ],
+    "challenges": [
+      "Normalizing heterogeneous odds and market data in real time",
+      "Balancing ingestion latency with scoring consistency"
+    ],
+    "repo_name": "betty"
+  },
+  {
+    "title": "Chatty Multi-Interface LLM Client",
+    "description": "Monorepo chat platform with web, API, and CLI interfaces for model interaction and conversation export.",
+    "tech_stack": ["TypeScript", "Next.js", "Node.js", "Express", "Prisma", "PostgreSQL", "pnpm Workspaces", "Docker"],
+    "highlights": [
+      "Built separate web UI, REST/SSE API, and terminal CLI in one workspace",
+      "Implemented conversation history and export endpoints",
+      "Used Prisma migrations with containerized local Postgres"
+    ],
+    "challenges": [
+      "Keeping behavior consistent across web and CLI interaction layers",
+      "Managing monorepo tooling and local developer experience"
+    ],
+    "repo_name": "chatty"
+  },
+  {
+    "title": "AVRYai Sales Copilot",
+    "description": "Real-time assistant that transcribes sales conversations and generates next-response suggestions during live calls.",
+    "tech_stack": ["FastAPI", "WebSockets", "React", "Electron", "OpenAI Whisper", "GPT-4o"],
+    "highlights": [
+      "Built streaming pipeline from captured audio to transcript to suggestion",
+      "Implemented low-latency suggestion loop with rolling context",
+      "Delivered overlay UX for in-call guidance"
+    ],
+    "challenges": [
+      "Handling live audio capture and streaming constraints",
+      "Controlling response quality under strict real-time latency"
+    ],
+    "repo_name": "avryai-copilot"
+  },
+  {
+    "title": "Beary Trading Dashboard",
+    "description": "Kraken-style trading command center with live bot monitoring, charts, order book, and analytics views.",
+    "tech_stack": ["React", "TypeScript", "Vite", "FastAPI", "WebSocket", "PostgreSQL", "Docker"],
+    "highlights": [
+      "Developed full-stack dashboard with real-time data channels",
+      "Implemented backend fallbacks for resilience during data-source outages",
+      "Organized services for local and containerized execution"
+    ],
+    "challenges": [
+      "Presenting fast-moving market data without UI instability",
+      "Blending mock and live modes for reliable development"
+    ],
+    "repo_name": "beary"
+  },
+  {
+    "title": "AVRYai Admin Dashboard",
+    "description": "Operational dashboard for authentication, lead tracking, and SMS conversation management.",
+    "tech_stack": ["React", "Vite", "Tailwind CSS", "React Query", "Socket.IO", "Axios"],
+    "highlights": [
+      "Created authenticated dashboard flows with client-side routing",
+      "Implemented periodic refresh patterns for active operational data",
+      "Shipped responsive UI for desktop and mobile use"
+    ],
+    "challenges": [
+      "Maintaining usability while handling high-volume conversation data",
+      "Coordinating optimistic UI behavior with API refresh cycles"
+    ],
+    "repo_name": "avryai-admin"
+  }
+]

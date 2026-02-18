@@ -1,63 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Robert Avery | Software Developer</title>
-    <style>
-        body {
-            font-family: Arial;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: #0f172a;
-            color: #e2e8f0;
-        }
-        h1 { color: #38bdf8; }
-        h2 { color: #7dd3fc; }
-        a { color: #38bdf8; text-decoration: none; }
-        .project {
-            background: #020617;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 8px;
-        }
-    </style>
-</head>
-<body>
+    <meta
+      name="description"
+      content="Portfolio of Robert Avery, software developer focused on full-stack systems, real-time applications, and AI-enabled products."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <section class="hero">
+        <p class="kicker">Portfolio</p>
+        <h1>Robert Avery</h1>
+        <p class="title">Software Developer</p>
+        <p class="positioning">
+          I build production-focused systems across AI, real-time data, and full-stack product engineering.
+        </p>
+        <a class="button" href="https://github.com/robertavery" target="_blank" rel="noreferrer">GitHub</a>
+      </section>
 
-<h1>Robert Avery</h1>
+      <section>
+        <h2>Projects</h2>
+        <div id="projects" class="projects-grid" aria-live="polite"></div>
+      </section>
 
-<p>
-Software developer focused on AI systems, backend infrastructure, and automation.
-</p>
+      <section>
+        <h2>Skills</h2>
+        <div id="skills" class="skills-wrap"></div>
+      </section>
 
-<p>
-GitHub: <a href="https://github.com/YOURUSERNAME">github.com/YOURUSERNAME</a>
-</p>
+      <section>
+        <h2>About</h2>
+        <p class="about">
+          I focus on shipping systems that work under real constraints: multi-service integrations, realtime event flow,
+          and deployment-ready architecture. Most of my work sits at the intersection of backend reliability and product usability.
+        </p>
+      </section>
 
-<h2>Projects</h2>
+      <section>
+        <h2>Contact</h2>
+        <p>
+          Best place to reach me: <a href="https://github.com/robertavery" target="_blank" rel="noreferrer">github.com/robertavery</a>
+        </p>
+      </section>
+    </main>
 
-<div class="project">
-<h3>AI Trading Bot</h3>
-<p>
-Multi-service trading system built with Python, FastAPI, and Postgres. 
-Includes market ingestion, automated decision engine, and execution pipeline.
-</p>
-</div>
-
-<div class="project">
-<h3>AVRYai — AI Receptionist</h3>
-<p>
-Voice AI backend using FastAPI and Twilio for real-time transcription and automation.
-</p>
-</div>
-
-<div class="project">
-<h3>Backend Systems and Automation</h3>
-<p>
-Experience building microservices, APIs, and data pipelines using Python and Docker.
-</p>
-</div>
-
-</body>
+    <script src="script.js" defer></script>
+  </body>
 </html>
