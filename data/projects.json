@@ -2,219 +2,404 @@
   "projects": [
     {
       "title": "AVRYai AI Receptionist Platform",
-      "description": "B2B SaaS voice AI receptionist platform for inbound call handling, scheduling, and messaging workflows.",
+      "description": "Voice-first receptionist platform split across API, telephony gateway, and web surfaces.",
       "status": "Near production-ready",
       "featured": true,
       "repo_name": "avryai",
       "tech_stack": ["FastAPI", "Python", "Node.js", "Express", "PostgreSQL", "Twilio", "Vapi", "Stripe", "AWS ECS"],
+      "evidence_summary": "Evidence: 21 service modules, 5 migration scripts, 9 automation pipeline modules.",
       "proof": {
-        "screenshots": ["assets/placeholder-screenshot.png"],
+        "screenshots": [
+          "assets/avryai-ui-placeholder.svg",
+          "assets/avryai-workflow-placeholder.svg"
+        ],
         "demo_video": "",
-        "architecture_image": "assets/placeholder-architecture.png"
+        "architecture_image": "assets/avryai-architecture.svg"
       },
-      "evidence": [
-        "Repository structure includes `api/`, `voice-gateway/`, and `web/` services.",
-        "Backend entrypoint exists at `api/main.py` with supporting `api/routers/`, `api/services/`, and `api/migrations/`.",
-        "Voice orchestration entrypoint exists at `voice-gateway/server.js`.",
-        "Deployment artifacts include `Dockerfile.api`, `Dockerfile.voice`, and `docker-compose.prod.yml`.",
-        "Deployment scripts exist (`deploy-api.sh`, `deploy-voice.sh`) for separate service rollouts."
-      ],
       "what_i_built": [
-        "Split call handling into separate API and voice gateway services.",
-        "Integrated telephony, scheduling, and messaging workflows in backend services.",
-        "Added deploy scripts and container definitions for cloud deployment.",
-        "Maintained both customer-facing web and service-level backend code in the same system."
+        "Split runtime responsibilities between `api/` and `voice-gateway/` for call orchestration and business logic.",
+        "Implemented router and service layers for clients, billing, onboarding, leads, SMS, and scheduling workflows.",
+        "Added migration scripts for schema updates and backfills under `api/migrations/`.",
+        "Maintained deployment scripts and container definitions for separate API and voice service releases."
       ],
       "hard_problems": [
-        "Coordinating real-time call events and asynchronous backend state changes.",
-        "Handling reliability across multiple third-party APIs in one call flow.",
-        "Keeping deployable service boundaries while features continue to evolve."
+        "Coordinating telephony webhooks, websocket media streams, and backend state updates.",
+        "Managing evolving schema and backfill requirements while services continue running.",
+        "Keeping service boundaries stable while integrating multiple third-party providers."
       ],
-      "how_to_run": [
-        "API service: run `uvicorn main:app --reload --port 8000` from `api/`.",
-        "Voice gateway: run `node server.js` from `voice-gateway/`.",
-        "Configure required provider credentials in local `.env` files before startup."
-      ]
-    },
-    {
-      "title": "Betty Sports Betting Research Platform",
-      "description": "Real-time data aggregation and scoring system for researching market opportunities.",
-      "status": "In active development",
-      "featured": true,
-      "repo_name": "betty",
-      "tech_stack": ["Python", "FastAPI", "WebSockets", "SQLAlchemy", "PostgreSQL", "Redis", "Docker", "Pandas", "NumPy"],
-      "proof": {
-        "screenshots": ["assets/placeholder-screenshot.png"],
-        "demo_video": "",
-        "architecture_image": "assets/placeholder-architecture.png"
-      },
-      "evidence": [
-        "Repository contains `src/connectors/`, `src/scoring/`, `src/models/`, and `tests/`.",
-        "Scoring implementation is present in `src/scoring/engine.py` with configurable weights.",
-        "Local stack artifacts include `docker-compose.yml` and `Dockerfile`.",
-        "Dependencies include FastAPI, Redis, SQLAlchemy, websockets, pandas, and numpy.",
-        "`scripts/init-db.sql` exists for database initialization."
+      "architecture_snapshot": [
+        "Inbound calls enter a telephony provider and are routed into `voice-gateway/server.js`.",
+        "Voice gateway forwards events to FastAPI routes in `api/main.py` and `api/routers/`.",
+        "Business workflows are implemented in dedicated modules under `api/services/`.",
+        "Data persistence is handled through Postgres-aware service code and migration scripts.",
+        "Web layer exists in `web/` for public-facing product and onboarding surface.",
+        "Deployment automation is split into `deploy-api.sh` and `deploy-voice.sh`."
       ],
-      "what_i_built": [
-        "Built ingestion paths for websocket and REST data sources.",
-        "Implemented a weighted scoring engine with factor modules.",
-        "Set up persistence models and async database access patterns.",
-        "Containerized local development setup for repeatable bootstrapping."
-      ],
-      "hard_problems": [
-        "Normalizing mixed market feeds into a single scoring pipeline.",
-        "Balancing score freshness with database write volume.",
-        "Keeping connector failures isolated from overall system operation."
-      ],
-      "how_to_run": [
-        "Start local dependencies with `docker-compose up -d`.",
-        "Run app with `python -m src.main --dev` after installing requirements.",
-        "Set API credentials in `.env` for enabled connectors."
-      ]
+      "evidence": {
+        "key_directories": [
+          "`api/routers/` contains route modules for clients, billing, onboarding, leads, and calendar.",
+          "`api/services/` contains service modules for SMS, Twilio, Stripe, calendar, reminders, and analysis.",
+          "`api/migrations/` stores schema migration and backfill scripts.",
+          "`voice-gateway/` hosts call/webhook handling and streaming entrypoints.",
+          "`web/` contains static marketing site assets."
+        ],
+        "notable_files": [
+          "`api/main.py`",
+          "`voice-gateway/server.js`",
+          "`api/routers/clients.py`",
+          "`api/routers/calendar.py`",
+          "`api/routers/billing.py`",
+          "`api/services/twilio_service.py`",
+          "`api/services/stripe_service.py`",
+          "`api/services/calendar_service.py`",
+          "`docker-compose.prod.yml`",
+          "`deploy-api.sh`"
+        ],
+        "interfaces": [
+          "`GET /health`",
+          "`POST /voice`",
+          "`POST /webhooks/vapi`",
+          "`POST /process-speech`",
+          "`POST /ai/chat`",
+          "`POST /leads/capture`",
+          "`GET /clients/{client_id}/locations`"
+        ],
+        "how_it_runs": [
+          "API: `uvicorn main:app --reload --port 8000` from `api/`.",
+          "Voice gateway: `node server.js` from `voice-gateway/`.",
+          "Deployment files include `Dockerfile.api`, `Dockerfile.voice`, and `docker-compose.prod.yml`."
+        ]
+      }
     },
     {
       "title": "Chatty Multi-Interface LLM Client",
-      "description": "Monorepo chat platform with web, API, and CLI interfaces.",
+      "description": "Monorepo chat system with web, API, and CLI interfaces backed by Prisma and Postgres.",
       "status": "In active development",
       "featured": true,
       "repo_name": "chatty",
-      "tech_stack": ["TypeScript", "Next.js", "Node.js", "Express", "Prisma", "PostgreSQL", "pnpm Workspaces", "Docker"],
+      "tech_stack": ["TypeScript", "Next.js", "Node.js", "Express", "Prisma", "PostgreSQL", "pnpm Workspaces", "Docker", "Playwright"],
+      "evidence_summary": "Evidence: 3 app packages, 18 Prisma migration directories, 11 provider/LLM pipeline modules.",
       "proof": {
-        "screenshots": ["assets/placeholder-screenshot.png"],
+        "screenshots": [
+          "assets/chatty-ui-placeholder.svg",
+          "assets/chatty-workflow-placeholder.svg"
+        ],
         "demo_video": "",
-        "architecture_image": "assets/placeholder-architecture.png"
+        "architecture_image": "assets/chatty-architecture.svg"
       },
-      "evidence": [
-        "Monorepo workspace includes `apps/web`, `apps/api`, and `apps/cli`.",
-        "API server entrypoint is `apps/api/src/index.ts` with Prisma migration scripts in package config.",
-        "`docker-compose.yml` provisions local Postgres for development.",
-        "`apps/web/tests` and Playwright config exist for end-to-end tests.",
-        "CLI package exposes a `chatty` binary via `apps/cli/package.json`."
-      ],
       "what_i_built": [
-        "Implemented API, web UI, and CLI interfaces in one workspace.",
-        "Added conversation history and export endpoints in API.",
-        "Wired Prisma-based schema and migrations for local data storage.",
-        "Set up developer scripts for multi-service local startup."
+        "Structured a monorepo with `apps/web`, `apps/api`, and `apps/cli` packages.",
+        "Implemented streaming and non-streaming chat paths plus conversation export endpoints.",
+        "Added Prisma migration history and project/memory models under `apps/api/prisma/`.",
+        "Built CLI interaction flow and command surface through the `chatty` binary package."
       ],
       "hard_problems": [
-        "Keeping behavior aligned across web and terminal interfaces.",
-        "Managing monorepo build tooling across TypeScript services.",
-        "Handling schema changes without breaking local developer setup."
+        "Keeping API behavior consistent across browser and terminal clients.",
+        "Supporting SSE chat streaming while preserving conversation persistence.",
+        "Managing schema evolution over many migration revisions in active development."
       ],
-      "how_to_run": [
-        "Start Postgres with `docker compose up -d`.",
-        "Run API migrations with `pnpm --filter @chatty/api prisma migrate dev`.",
-        "Run combined web + API dev workflow using `pnpm dev` from repo root."
-      ]
-    },
-    {
-      "title": "AVRYai Sales Copilot",
-      "description": "Real-time call assistant that transcribes and suggests next responses during live conversations.",
-      "status": "Prototype/MVP",
-      "featured": false,
-      "repo_name": "avryai-copilot",
-      "tech_stack": ["FastAPI", "WebSockets", "React", "Electron", "OpenAI Whisper", "GPT-4o"],
-      "proof": {
-        "screenshots": ["assets/placeholder-screenshot.png"],
-        "demo_video": "",
-        "architecture_image": "assets/placeholder-architecture.png"
-      },
-      "evidence": [
-        "Repository has distinct `backend/`, `frontend/`, and desktop shell directories.",
-        "Backend service entrypoint exists at `backend/main.py`.",
-        "Frontend overlay components exist in `frontend/src/App.jsx` and `frontend/src/Copilot.jsx`.",
-        "Desktop packaging is configured under `avryai-copilot-tauri/src-tauri/`.",
-        "Start scripts are present (`run.sh`, `start.sh`) for local iteration."
+      "architecture_snapshot": [
+        "Next.js frontend in `apps/web/` talks to the API service in `apps/api/`.",
+        "CLI in `apps/cli/` consumes the same backend endpoints for parity.",
+        "API entrypoint `apps/api/src/index.ts` handles chat, conversations, and project state.",
+        "Provider and model routing logic is separated under `apps/api/src/providers/` and `apps/api/src/llm/`.",
+        "Postgres is provisioned by `docker-compose.yml` on local port 5433.",
+        "Prisma schema and migrations under `apps/api/prisma/` track database changes."
       ],
-      "what_i_built": [
-        "Implemented streaming backend for transcript and suggestion messaging.",
-        "Built frontend overlay for in-call response guidance.",
-        "Integrated desktop wrapper path for local operator workflows.",
-        "Documented multi-process local startup in README."
-      ],
-      "hard_problems": [
-        "Managing low-latency transcript-to-suggestion flow in real time.",
-        "Maintaining conversation context quality across rapid speaker turns.",
-        "Coordinating backend, UI, and desktop shell during local development."
-      ],
-      "how_to_run": [
-        "Backend: install `backend/requirements.txt` then run `python main.py`.",
-        "Frontend: run `npm run dev` in `frontend/`.",
-        "Desktop shell can be started from the Tauri workspace when needed."
-      ]
+      "evidence": {
+        "key_directories": [
+          "`apps/web/` for Next.js UI.",
+          "`apps/api/src/` for Express API handlers, providers, and LLM routing.",
+          "`apps/api/prisma/migrations/` for schema evolution.",
+          "`apps/cli/src/` for terminal REPL and commands.",
+          "`tools/smoke-tests/` for integration test scripts."
+        ],
+        "notable_files": [
+          "`apps/api/src/index.ts`",
+          "`apps/api/prisma/schema.prisma`",
+          "`apps/api/src/providers/openaiProvider.ts`",
+          "`apps/api/src/providers/anthropicProvider.ts`",
+          "`apps/api/src/llm/modelRouter.ts`",
+          "`apps/cli/src/index.ts`",
+          "`apps/web/tests/e2e/*.spec.ts`",
+          "`docker-compose.yml`"
+        ],
+        "interfaces": [
+          "`POST /chat`",
+          "`POST /chat/stream`",
+          "`GET /conversations`",
+          "`GET /conversation/:id/export`",
+          "`GET /models`",
+          "`GET /projects`",
+          "`POST /upload`"
+        ],
+        "how_it_runs": [
+          "Start Postgres: `docker compose up -d`.",
+          "Run migrations: `pnpm --filter @chatty/api prisma migrate dev`.",
+          "Run services: `pnpm dev` from repo root."
+        ]
+      }
     },
     {
       "title": "Beary Trading Dashboard",
-      "description": "Trading command center with real-time monitoring, charts, order book views, and analytics panels.",
+      "description": "Trading dashboard and research system with live market APIs, websocket updates, and analytics endpoints.",
       "status": "Refactor in progress",
-      "featured": false,
+      "featured": true,
       "repo_name": "beary",
-      "tech_stack": ["React", "TypeScript", "Vite", "FastAPI", "WebSocket", "PostgreSQL", "Docker"],
+      "tech_stack": ["FastAPI", "WebSocket", "React", "TypeScript", "Vite", "PostgreSQL", "Docker", "Pandas", "NumPy"],
+      "evidence_summary": "Evidence: 6 backend service modules, 2 SQL migration scripts, 19 scanner/trading pipeline modules.",
       "proof": {
-        "screenshots": ["assets/placeholder-screenshot.png"],
+        "screenshots": [
+          "assets/beary-ui-placeholder.svg",
+          "assets/beary-workflow-placeholder.svg"
+        ],
+        "demo_video": "",
+        "architecture_image": "assets/beary-architecture.svg"
+      },
+      "what_i_built": [
+        "Split dashboard stack into backend API (`dashboard/backend`) and frontend app (`dashboard/frontend`).",
+        "Implemented REST endpoints for candles, orderbook, news, analytics, and account/trade views.",
+        "Added websocket stream endpoint for live payload pushes to the frontend.",
+        "Maintained research/backtest and scanner pipelines alongside dashboard delivery."
+      ],
+      "hard_problems": [
+        "Handling live data feeds with fallback behavior when providers fail.",
+        "Keeping dashboard API and research pipelines aligned during refactor cycles.",
+        "Balancing product UI needs with ongoing strategy experimentation modules."
+      ],
+      "architecture_snapshot": [
+        "Frontend Vite/React app under `dashboard/frontend/` consumes backend API and websocket feeds.",
+        "FastAPI backend at `dashboard/backend/app/main.py` aggregates candles, orderbook, news, and analytics.",
+        "Realtime stream is exposed at websocket route `WS /ws`.",
+        "Persistence and calculations depend on Postgres and local analytics code paths.",
+        "Scanner, trading, and backtest modules exist outside dashboard app for strategy workflows.",
+        "SQL change scripts are tracked in `sql/` for schema-related updates."
+      ],
+      "evidence": {
+        "key_directories": [
+          "`dashboard/backend/app/` contains FastAPI app modules and websocket endpoint.",
+          "`dashboard/frontend/src/components/` contains market, chart, and control components.",
+          "`scanner/` and `trading/` contain live scanning and execution logic.",
+          "`backtest/strategies/` contains strategy modules for offline evaluation.",
+          "`sql/` contains SQL scripts used for system evolution."
+        ],
+        "notable_files": [
+          "`dashboard/backend/app/main.py`",
+          "`dashboard/backend/app/config.py`",
+          "`dashboard/backend/app/mock_data.py`",
+          "`dashboard/docker-compose.yml`",
+          "`run_backtest.py`",
+          "`monitor_bots.py`",
+          "`sql/create_setup_logs.sql`",
+          "`sql/enhance_adaptive_system.sql`"
+        ],
+        "interfaces": [
+          "`GET /health`",
+          "`GET /api/candles/{symbol}`",
+          "`GET /api/orderbook/{symbol}`",
+          "`GET /api/news`",
+          "`GET /api/analytics`",
+          "`GET /api/positions`",
+          "`WS /ws`"
+        ],
+        "how_it_runs": [
+          "Backend: `uvicorn app.main:app --reload --port 8000` from `dashboard/backend`.",
+          "Frontend: `npm run dev` from `dashboard/frontend`.",
+          "Full stack option: `docker compose --profile full up --build` from `dashboard/`."
+        ]
+      }
+    },
+    {
+      "title": "Betty Sports Betting Research Platform",
+      "description": "Realtime data ingestion and scoring engine for research workflows across sportsbook and prediction-market feeds.",
+      "status": "In active development",
+      "featured": false,
+      "repo_name": "betty",
+      "tech_stack": ["Python", "FastAPI", "WebSockets", "SQLAlchemy", "PostgreSQL", "Redis", "Docker", "Pandas", "NumPy"],
+      "proof": {
+        "screenshots": [
+          "assets/placeholder-screenshot.png"
+        ],
         "demo_video": "",
         "architecture_image": "assets/placeholder-architecture.png"
       },
-      "evidence": [
-        "Dashboard code is split into `dashboard/backend/` and `dashboard/frontend/`.",
-        "Backend app entrypoint exists at `dashboard/backend/app/main.py`.",
-        "`dashboard/docker-compose.yml` defines containerized local services.",
-        "Frontend Vite app exists under `dashboard/frontend/src/`.",
-        "Project includes backtest and analysis directories used for research workflows."
-      ],
       "what_i_built": [
-        "Shipped backend API and frontend dashboard as separate deployable units.",
-        "Integrated websocket-enabled market data views in dashboard flows.",
-        "Added Docker-based local environment for service orchestration.",
-        "Maintained parallel research/backtest paths while evolving dashboard architecture."
+        "Implemented connector abstraction for websocket and REST sources.",
+        "Built scoring engine with weighted factor modules and utilities.",
+        "Added database models for markets, odds, bets, and performance records.",
+        "Set up Docker local environment and test scaffolding."
       ],
       "hard_problems": [
-        "Keeping UI stable under high-frequency data updates.",
-        "Supporting both operational dashboards and research pipelines in one codebase.",
-        "Refactoring system boundaries without blocking ongoing feature work."
+        "Normalizing multiple external feed formats into one scoring pipeline.",
+        "Maintaining freshness while coordinating async connectors and persistence.",
+        "Designing retry and reconnect behavior for websocket-driven ingestion."
       ],
-      "how_to_run": [
-        "Backend: run `uvicorn app.main:app --reload --port 8000` from `dashboard/backend`.",
-        "Frontend: run `npm run dev` from `dashboard/frontend`.",
-        "Use `docker compose --profile full up --build` for full local stack."
-      ]
+      "architecture_snapshot": [
+        "Connector manager orchestrates websocket and REST connector lifecycles.",
+        "Websocket adapters include Kalshi and Betfair stream handlers.",
+        "REST adapters include odds, ESPN, and weather providers.",
+        "Scoring engine computes weighted opportunity scores.",
+        "Data models and DB layer store odds snapshots and tracked outcomes.",
+        "Redis cache layer is available for low-latency state caching."
+      ],
+      "evidence": {
+        "key_directories": [
+          "`src/connectors/websockets/` for streaming connectors.",
+          "`src/connectors/apis/` for REST source adapters.",
+          "`src/scoring/factors/` for weighted score factor modules.",
+          "`src/models/` for SQLAlchemy entity definitions.",
+          "`tests/` for verification workflows."
+        ],
+        "notable_files": [
+          "`src/main.py`",
+          "`src/connectors/manager.py`",
+          "`src/connectors/websockets/kalshi.py`",
+          "`src/connectors/websockets/betfair.py`",
+          "`src/scoring/engine.py`",
+          "`src/models/markets.py`",
+          "`src/models/odds.py`",
+          "`docker-compose.yml`"
+        ],
+        "interfaces": [
+          "Kalshi websocket stream connector",
+          "Betfair websocket stream connector",
+          "Odds API REST connector",
+          "ESPN REST connector",
+          "Weather REST connector",
+          "Internal scoring output pipeline in `src/scoring/engine.py`"
+        ],
+        "how_it_runs": [
+          "Local services: `docker-compose up -d`.",
+          "App entrypoint: `python -m src.main --dev`.",
+          "Tests: `pytest tests/ -v`."
+        ]
+      }
+    },
+    {
+      "title": "AVRYai Sales Copilot",
+      "description": "Realtime assistant for call transcription and next-response guidance across meeting and telephony streams.",
+      "status": "Prototype/MVP",
+      "featured": false,
+      "repo_name": "avryai-copilot",
+      "tech_stack": ["FastAPI", "WebSockets", "React", "Tauri", "OpenAI", "Deepgram", "Twilio", "Telnyx"],
+      "proof": {
+        "screenshots": [
+          "assets/placeholder-screenshot.png"
+        ],
+        "demo_video": "",
+        "architecture_image": "assets/placeholder-architecture.png"
+      },
+      "what_i_built": [
+        "Implemented FastAPI websocket endpoints for meeting and telephony media streams.",
+        "Built copilot frontend overlay flow in React for live suggestion delivery.",
+        "Added meeting bot and phone-call control endpoints for runtime orchestration.",
+        "Maintained desktop wrapper configuration in Tauri for local operator workflows."
+      ],
+      "hard_problems": [
+        "Synchronizing live audio streams with transcript/suggestion timing.",
+        "Managing multiple websocket channels for different call transport types.",
+        "Handling call lifecycle transitions while keeping frontend session state coherent."
+      ],
+      "architecture_snapshot": [
+        "FastAPI backend in `backend/main.py` handles control and websocket routes.",
+        "Frontend React app under `frontend/src/` renders copilot UI state.",
+        "Tauri workspace under `avryai-copilot-tauri/` provides desktop shell packaging.",
+        "Backend integrates speech transcription and LLM suggestion clients.",
+        "Realtime channels include meeting-bot, telco stream, and frontend copilot websocket paths."
+      ],
+      "evidence": {
+        "key_directories": [
+          "`backend/` for FastAPI and websocket runtime.",
+          "`frontend/src/` for React copilot UI.",
+          "`avryai-copilot-tauri/src-tauri/` for desktop runtime config.",
+          "`scripts/` for setup helpers."
+        ],
+        "notable_files": [
+          "`backend/main.py`",
+          "`backend/requirements.txt`",
+          "`frontend/src/Copilot.jsx`",
+          "`frontend/src/App.jsx`",
+          "`avryai-copilot-tauri/src-tauri/tauri.conf.json`",
+          "`avryai-copilot-tauri/src-tauri/Cargo.toml`"
+        ],
+        "interfaces": [
+          "`GET /health`",
+          "`POST /api/start-bot`",
+          "`POST /api/make-call`",
+          "`POST /api/end-call/{call_sid}`",
+          "`WS /ws/copilot`",
+          "`WS /ws/meetingbaas/{session_id}`",
+          "`WS /ws/twilio/{call_sid}`"
+        ],
+        "how_it_runs": [
+          "Backend: `python main.py` from `backend/`.",
+          "Frontend: `npm run dev` from `frontend/`.",
+          "Desktop shell uses the Tauri workspace under `avryai-copilot-tauri/`."
+        ]
+      }
     },
     {
       "title": "AVRYai Admin Dashboard",
-      "description": "Operational dashboard for authentication, conversation management, and lead monitoring.",
+      "description": "Operations dashboard for conversations, leads, clients, and activity monitoring.",
       "status": "In active development",
       "featured": false,
       "repo_name": "avryai-admin",
-      "tech_stack": ["React", "Vite", "Tailwind CSS", "React Query", "Socket.IO", "Axios"],
+      "tech_stack": ["React", "Vite", "Tailwind CSS", "Axios", "React Router", "JWT"],
       "proof": {
-        "screenshots": ["assets/placeholder-screenshot.png"],
+        "screenshots": [
+          "assets/placeholder-screenshot.png"
+        ],
         "demo_video": "",
         "architecture_image": "assets/placeholder-architecture.png"
       },
-      "evidence": [
-        "Dashboard pages are implemented under `avryai-admin/src/pages/`.",
-        "Data and auth integration layers exist under `avryai-admin/src/services/` and `src/contexts/`.",
-        "Build tooling includes `vite.config.js`, `tailwind.config.js`, and production `dist/` output.",
-        "Routing and UI components are split across `src/components/` and page-level modules.",
-        "README documents local dev and production build commands."
-      ],
       "what_i_built": [
-        "Built authenticated admin flows for operational users.",
-        "Implemented conversation and detail pages for SMS management.",
-        "Added service-layer data access and periodic refresh behavior.",
-        "Maintained responsive UI patterns for desktop and mobile contexts."
+        "Built authenticated admin UI flows for login, dashboard, and conversation detail pages.",
+        "Implemented API service layer with auth token injection and request helpers.",
+        "Added pagination/filter support for conversations and leads retrieval.",
+        "Prepared production build and deployment outputs through Vite pipeline."
       ],
       "hard_problems": [
-        "Keeping operational tables usable as dataset size grows.",
-        "Balancing refresh cadence with API load and UI responsiveness.",
-        "Evolving auth/session handling while features are still being added."
+        "Maintaining usable UI for operational lists while data volume grows.",
+        "Handling auth expiration and session transitions cleanly on the client.",
+        "Keeping dashboard refresh behavior responsive without overloading API requests."
       ],
-      "how_to_run": [
-        "Install dependencies with `npm install` in the app directory.",
-        "Run local dev server via `npm run dev`.",
-        "Create production build via `npm run build` and verify with `npm run preview`."
-      ]
+      "architecture_snapshot": [
+        "React app entrypoint in `src/main.jsx` mounts route-driven admin UI.",
+        "Service client in `src/services/api.js` wraps axios with auth interceptors.",
+        "Page modules in `src/pages/` separate dashboard, conversation, and login workflows.",
+        "Context layer in `src/contexts/AuthContext.jsx` centralizes auth state.",
+        "Vite build outputs static artifacts for deployment under `dist/`."
+      ],
+      "evidence": {
+        "key_directories": [
+          "`avryai-admin/src/pages/` for route-level screens.",
+          "`avryai-admin/src/components/` for reusable UI sections.",
+          "`avryai-admin/src/services/` for HTTP integration layer.",
+          "`avryai-admin/src/contexts/` for auth state management.",
+          "`avryai-admin/dist/` for production build output."
+        ],
+        "notable_files": [
+          "`avryai-admin/src/services/api.js`",
+          "`avryai-admin/src/pages/DashboardPage.jsx`",
+          "`avryai-admin/src/pages/ConversationsPage.jsx`",
+          "`avryai-admin/src/pages/ConversationDetailPage.jsx`",
+          "`avryai-admin/src/contexts/AuthContext.jsx`",
+          "`avryai-admin/vite.config.js`"
+        ],
+        "interfaces": [
+          "`POST /auth/login`",
+          "`GET /admin/stats`",
+          "`GET /admin/conversations`",
+          "`GET /admin/conversations/{id}`",
+          "`GET /admin/leads`",
+          "`POST /admin/send-sms`"
+        ],
+        "how_it_runs": [
+          "Install deps: `npm install`.",
+          "Run dev server: `npm run dev`.",
+          "Build and preview: `npm run build` then `npm run preview`."
+        ]
+      }
     }
   ]
 }

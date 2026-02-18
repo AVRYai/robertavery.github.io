@@ -14,23 +14,59 @@ function createLinkButton(text, url, ariaLabel) {
   return link;
 }
 
-function createBulletBlock(title, items) {
-  const block = document.createElement("section");
-  block.className = "evidence-block";
-
-  const header = document.createElement("h4");
-  header.textContent = title;
-  block.appendChild(header);
-
+function createList(items) {
   const list = document.createElement("ul");
   (items || []).forEach((item) => {
     const li = document.createElement("li");
     li.textContent = item;
     list.appendChild(li);
   });
-  block.appendChild(list);
+  return list;
+}
 
-  return block;
+function createCollapsibleSection(title, items) {
+  const details = document.createElement("details");
+  details.className = "collapsible";
+
+  const summary = document.createElement("summary");
+  summary.textContent = title;
+  details.appendChild(summary);
+
+  details.appendChild(createList(items));
+  return details;
+}
+
+function createEvidenceSection(evidence) {
+  const details = document.createElement("details");
+  details.className = "collapsible";
+
+  const summary = document.createElement("summary");
+  summary.textContent = "Evidence";
+  details.appendChild(summary);
+
+  const content = document.createElement("div");
+  content.className = "evidence-groups";
+
+  const groups = [
+    ["Key directories", evidence?.key_directories || []],
+    ["Notable files", evidence?.notable_files || []],
+    ["Interfaces", evidence?.interfaces || []],
+    ["How it runs", evidence?.how_it_runs || []],
+  ];
+
+  groups.forEach(([label, items]) => {
+    if (!items.length) return;
+    const block = document.createElement("section");
+    block.className = "evidence-block";
+    const h = document.createElement("h5");
+    h.textContent = label;
+    block.appendChild(h);
+    block.appendChild(createList(items));
+    content.appendChild(block);
+  });
+
+  details.appendChild(content);
+  return details;
 }
 
 function createProjectCard(project, skills) {
@@ -65,34 +101,41 @@ function createProjectCard(project, skills) {
     stack.appendChild(chip);
   });
 
+  const builtPreview = document.createElement("ul");
+  builtPreview.className = "built-preview";
+  (project.what_i_built || []).slice(0, 2).forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    builtPreview.appendChild(li);
+  });
+
+  const evidenceSummary = document.createElement("p");
+  evidenceSummary.className = "evidence-summary";
+  evidenceSummary.textContent = project.evidence_summary || "Evidence available in project details.";
+
   const actions = document.createElement("div");
   actions.className = "card-actions";
+  actions.appendChild(createLinkButton("Overview", `#detail-${id}`, `Open overview for ${project.title}`));
+  actions.appendChild(createLinkButton("Screenshots", `#screens-${id}`, `Jump to screenshots for ${project.title}`));
+  actions.appendChild(createLinkButton("Architecture", `#arch-${id}`, `Jump to architecture for ${project.title}`));
 
-  actions.appendChild(
-    createLinkButton("Overview", `#detail-${id}`, `Open overview for ${project.title}`)
-  );
-  actions.appendChild(
-    createLinkButton("Screenshots", `#screens-${id}`, `Jump to screenshots for ${project.title}`)
-  );
-  actions.appendChild(
-    createLinkButton("Architecture", `#arch-${id}`, `Jump to architecture for ${project.title}`)
-  );
-
-  const subject = encodeURIComponent(`Repo access request: ${project.title}`);
+  const subject = encodeURIComponent(`Portfolio review request: ${project.title}`);
   const body = encodeURIComponent(
-    `Hi Robert - I saw ${project.title} on your portfolio. Could you share a private read-only link or screenshare? My context: <company/role>. Thanks!`
+    `Hi Robert - I saw ${project.title} on your portfolio. Could you walk me through the architecture or share a read-only view in a screenshare? Company/role: ____`
   );
   actions.appendChild(
     createLinkButton(
       "Request Access",
       `mailto:ravery966@gmail.com?subject=${subject}&body=${body}`,
-      `Request private access for ${project.title}`
+      `Request private walkthrough for ${project.title}`
     )
   );
 
   card.appendChild(titleRow);
   card.appendChild(desc);
   card.appendChild(stack);
+  card.appendChild(builtPreview);
+  card.appendChild(evidenceSummary);
   card.appendChild(actions);
 
   return card;
@@ -104,12 +147,18 @@ function createDetail(project) {
   detail.className = "detail-card";
   detail.id = `detail-${id}`;
 
+  const headingRow = document.createElement("div");
+  headingRow.className = "title-row";
+
   const heading = document.createElement("h3");
   heading.textContent = project.title;
 
-  const status = document.createElement("p");
-  status.className = "detail-status";
-  status.textContent = `Status: ${project.status}`;
+  const status = document.createElement("span");
+  status.className = "status-pill";
+  status.textContent = project.status;
+
+  headingRow.appendChild(heading);
+  headingRow.appendChild(status);
 
   const summary = document.createElement("p");
   summary.className = "detail-summary";
@@ -151,35 +200,24 @@ function createDetail(project) {
   }
 
   if (project.proof?.demo_video) {
-    const video = document.createElement("a");
-    video.href = project.proof.demo_video;
-    video.target = "_blank";
-    video.rel = "noreferrer";
-    video.textContent = "Demo Video";
-    archSection.appendChild(video);
+    const demoLink = document.createElement("a");
+    demoLink.href = project.proof.demo_video;
+    demoLink.target = "_blank";
+    demoLink.rel = "noreferrer";
+    demoLink.textContent = "Demo video";
+    archSection.appendChild(demoLink);
   }
 
   proofWrap.appendChild(screenSection);
   proofWrap.appendChild(archSection);
 
-  const evidencePanel = document.createElement("section");
-  evidencePanel.className = "panel static-panel";
-  const evidenceTitle = document.createElement("h4");
-  evidenceTitle.textContent = "Evidence";
-  evidencePanel.appendChild(evidenceTitle);
-  evidencePanel.appendChild(createBulletBlock("Repository Evidence", project.evidence || []));
-  evidencePanel.appendChild(createBulletBlock("What I Built", project.what_i_built || []));
-  evidencePanel.appendChild(createBulletBlock("Hard Problems", project.hard_problems || []));
-
-  if (project.how_to_run && project.how_to_run.length) {
-    evidencePanel.appendChild(createBulletBlock("How To Run", project.how_to_run));
-  }
-
-  detail.appendChild(heading);
-  detail.appendChild(status);
+  detail.appendChild(headingRow);
   detail.appendChild(summary);
   detail.appendChild(proofWrap);
-  detail.appendChild(evidencePanel);
+  detail.appendChild(createCollapsibleSection("What I Built", project.what_i_built || []));
+  detail.appendChild(createCollapsibleSection("Hard Problems Solved", project.hard_problems || []));
+  detail.appendChild(createCollapsibleSection("Architecture Snapshot", project.architecture_snapshot || []));
+  detail.appendChild(createEvidenceSection(project.evidence || {}));
 
   return detail;
 }
@@ -213,6 +251,7 @@ async function loadProjects() {
       } else {
         moreRoot.appendChild(card);
       }
+
       detailRoot.appendChild(detail);
     });
 

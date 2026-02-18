@@ -44,6 +44,7 @@ h1,
 h2,
 h3,
 h4,
+h5,
 p {
   margin: 0;
 }
@@ -126,7 +127,7 @@ h2 {
   display: flex;
   gap: 0.75rem;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .status-pill {
@@ -163,11 +164,27 @@ h2 {
   color: #b9c5d7;
 }
 
+.built-preview {
+  margin: 0.75rem 0 0;
+  padding-left: 1.2rem;
+  color: #d2dcea;
+}
+
+.built-preview li {
+  margin: 0.3rem 0;
+}
+
+.evidence-summary {
+  margin-top: 0.55rem;
+  color: #a9bcce;
+  font-size: 0.93rem;
+}
+
 .card-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  margin-top: 1rem;
+  margin-top: 0.9rem;
 }
 
 .card-actions .button {
@@ -175,15 +192,14 @@ h2 {
   font-size: 0.88rem;
 }
 
-.detail-status {
-  margin-top: 0.55rem;
-  color: #a9bad1;
-}
-
 .proof-wrap {
   margin-top: 1rem;
   display: grid;
   gap: 1rem;
+}
+
+.proof-wrap h4 {
+  margin-bottom: 0.45rem;
 }
 
 .gallery {
@@ -200,35 +216,42 @@ h2 {
   background: #0f1520;
 }
 
-.panel {
-  margin-top: 1rem;
+.collapsible {
+  margin-top: 0.85rem;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #101621;
-  padding: 0.8rem;
 }
 
-.panel > h4 {
-  margin-bottom: 0.2rem;
-}
-
-.evidence-block {
-  margin-top: 0.65rem;
-}
-
-.evidence-block h4 {
-  font-size: 0.95rem;
+.collapsible summary {
+  cursor: pointer;
+  padding: 0.55rem 0.7rem;
   color: #d9e4f2;
+  font-weight: 600;
 }
 
-.evidence-block ul {
+.collapsible ul {
   margin: 0;
-  padding: 0.25rem 0 0 1.2rem;
+  padding: 0 1.2rem 0.8rem 1.9rem;
   color: #cdd8e6;
 }
 
-.evidence-block li {
+.collapsible li {
   margin: 0.3rem 0;
+}
+
+.evidence-groups {
+  padding-bottom: 0.8rem;
+}
+
+.evidence-block {
+  margin-top: 0.25rem;
+}
+
+.evidence-block h5 {
+  padding: 0.2rem 0.8rem;
+  color: #d0ddef;
+  font-size: 0.88rem;
 }
 
 .skills-wrap {
@@ -271,6 +294,5 @@ a {
 
   .title-row {
     flex-direction: column;
-    align-items: flex-start;
   }
 }
